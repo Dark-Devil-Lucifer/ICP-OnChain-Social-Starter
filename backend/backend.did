@@ -1,0 +1,41 @@
+type PostId = nat64;
+type Timestamp = nat64;
+
+type Profile = record {
+  username: text;
+  avatar_url: text;
+  created_at: Timestamp;
+};
+
+type Comment = record {
+  author: principal;
+  content: text;
+  created_at: Timestamp;
+};
+
+type Post = record {
+  id: PostId;
+  author: principal;
+  content: text;
+  created_at: Timestamp;
+  likes: vec principal;
+  comments: vec Comment;
+};
+
+service : {
+  register: (text, text) -> (variant { ok: Profile; err: text }) query false;
+  get_profile: (principal) -> (opt Profile) query;
+  create_post: (text) -> (variant { ok: Post; err: text }) query false;
+  edit_post: (PostId, text) -> (variant { ok: Post; err: text }) query false;
+  delete_post: (PostId) -> (variant { ok: null; err: text }) query false;
+  follow: (principal) -> (variant { ok: null; err: text }) query false;
+  unfollow: (principal) -> (variant { ok: null; err: text }) query false;
+  like_post: (PostId) -> (variant { ok: nat; err: text }) query false;
+  unlike_post: (PostId) -> (variant { ok: nat; err: text }) query false;
+  comment_post: (PostId, text) -> (variant { ok: Post; err: text }) query false;
+  get_post: (PostId) -> (opt Post) query;
+  get_user_posts: (principal) -> (vec Post) query;
+  get_following: (principal) -> (vec principal) query;
+  get_feed_for: (principal, nat, nat) -> (vec Post) query;
+  get_my_feed: (nat, nat) -> (vec Post) query;
+}

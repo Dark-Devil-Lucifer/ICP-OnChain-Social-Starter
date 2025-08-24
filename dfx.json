@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "dfx": "0.20.0",
+  "canisters": {
+    "backend": {
+      "type": "rust",
+      "package": "backend",
+      "candid": "backend/backend.did",
+      "build": "cargo build --target wasm32-unknown-unknown --release -p backend",
+      "wasm": "target/wasm32-unknown-unknown/release/backend.wasm"
+    },
+    "frontend": {
+      "type": "assets",
+      "source": [
+        "frontend/dist"
+      ],
+      "build": "bash -lc 'cd frontend && npm install && npm run build'",
+      "dependencies": [
+        "backend"
+      ]
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env"
+}

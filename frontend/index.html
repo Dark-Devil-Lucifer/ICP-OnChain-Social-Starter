@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ICP On-Chain Social</title>
+    <script type="module">
+      // Attempt to load canister IDs produced by dfx at runtime (dev or deployed)
+      window.__CANISTER_IDS__ = {};
+      fetch('/canister_ids.json').then(r => r.ok ? r.json() : {}).then(ids => {
+        window.__CANISTER_IDS__ = ids;
+      }).catch(()=>{});
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
