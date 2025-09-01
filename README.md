@@ -23,10 +23,6 @@ dfx start --clean --background
 dfx deploy backend
 ```
 ```
-dfx deploy frontend
-```
-```
- or run a local dev server:
 cd frontend && npm run dev
 ```
 
